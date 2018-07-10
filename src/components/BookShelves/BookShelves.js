@@ -1,18 +1,19 @@
 import React from 'react';
 import BookShelf from './BookShelf/BookShelf';
+import { getShelves } from '../../models/shelves';
 
 const bookShelves = (props) => {
-  console.log(props.books);
   return (
     <React.Fragment>
-      {props.shelves.map((shelf) => (
+      {getShelves().map((shelf) => (
         <BookShelf
-          key={shelf}
-          shelfHeader={shelf}
-          shelfBooks={props.books.filter(
-            (book) => shelf.replace(/\s+/g, '').toLowerCase() === book.shelf.toLowerCase()
+          header={shelf.label}
+          key={shelf.id}
+          onShelfChange={props.onShelfChange}
+          books={props.books.filter(
+            (book) => shelf.id === book.shelf
           )}
-        />
+          />
       ))}
     </React.Fragment>
   );
