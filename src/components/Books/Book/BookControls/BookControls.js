@@ -3,10 +3,8 @@ import { getShelves } from '../../../../models/shelves';
 
 class BookControls extends Component {
   state = {
-    selectedValue: this.props.currentShelf,
+    selectedValue: this.props.currentShelf || 'moveTo'
   }
-
-
 
   onShelfChange = (event) => {
     const selectedValue = event.target.value;
@@ -21,7 +19,9 @@ class BookControls extends Component {
           className='book-shelf-changer'>
           <select
             value={this.state.selectedValue}
-            onChange={this.onShelfChange}>
+            onChange={this.onShelfChange}
+          >
+            <option disabled value='moveTo'> -- Move to -- </option>
             {getShelves().map((shelf) => (
               <option
                 key={shelf.id}

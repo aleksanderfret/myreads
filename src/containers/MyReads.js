@@ -22,7 +22,7 @@ class MyReads extends Component {
           const prevBook = newBooks.find(b => b.id === book.id);
           prevBook.shelf = newShelf;
           return { books: newBooks };
-        })
+        });
       }})
   }
 
