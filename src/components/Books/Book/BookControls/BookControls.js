@@ -3,25 +3,24 @@ import { getShelves } from '../../../../models/shelves';
 
 class BookControls extends Component {
   state = {
-    selectVisible: false
+    selectedValue: this.props.currentShelf,
   }
 
-  toggleSelectVisible = () => {
-    this.setState((prevState) => {
-      return ({selectVisible: !prevState.selectVisible});
-    })
-  }
+
 
   onShelfChange = (event) => {
-    this.props.onShelfChange(event.target.value);
+    const selectedValue = event.target.value;
+    this.props.onShelfChange(selectedValue);
+    this.setState(() => ({ selectedValue }));
   }
 
   render() {
-    return(
+    return (
       <React.Fragment>
         <button
           className='book-shelf-changer'>
           <select
+            value={this.state.selectedValue}
             onChange={this.onShelfChange}>
             {getShelves().map((shelf) => (
               <option

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import * as BooksAPI from '../BooksAPI';
 import BookShelves from '../components/BookShelves/BookShelves';
 
@@ -7,20 +8,20 @@ class MyReads extends Component {
     books: []
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     BooksAPI.getAll().then((books) => {
-      this.setState({ books }) // instead of { contacts: contacts }
+      this.setState({ books }) // instead of { books: books }
     });
   }
 
-  onShelfChange(book, newShelf) {
+  onShelfChange = (book, newShelf) => {
     BooksAPI.update(book, newShelf).then((updated) => {
       if (updated[newShelf] && updated[newShelf].includes(book.id)) {
         this.setState((prevState) => {
-          //const prevBook = prevState.books.find(b => b.id === book.id);
-          //prevBook.shelf = newShelf;
-
-
+          const newBooks = [...prevState.books];
+          const prevBook = newBooks.find(b => b.id === book.id);
+          prevBook.shelf = newShelf;
+          return { books: newBooks };
         })
       }})
   }
@@ -32,6 +33,12 @@ render() {
       <BookShelves
         onShelfChange={this.onShelfChange}
         books={this.state.books} />
+      <div className='open-search'>
+        <Link
+          to='/search'
+          className=''
+        >Search Book</Link>
+      </div>
     </React.Fragment>
   );
 }

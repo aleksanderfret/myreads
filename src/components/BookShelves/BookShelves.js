@@ -13,7 +13,7 @@ const bookShelves = (props) => {
           books={props.books.filter(
             (book) => shelf.id === book.shelf
           )}
-          />
+        />
       ))}
     </React.Fragment>
   );
