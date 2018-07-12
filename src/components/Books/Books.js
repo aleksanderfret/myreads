@@ -1,7 +1,7 @@
 import React from 'react';
 import Book from './Book/Book';
 
-const books = (props) => {
+const Books = (props) => {
   return (
     <ul className='books-grid'>
       {props.books.map((book) => (
@@ -16,4 +16,4 @@ const books = (props) => {
   );
 }
 
-export default books;
+export default Books;

@@ -6,6 +6,8 @@ class BookControls extends Component {
     selectedValue: this.props.currentShelf || 'moveTo'
   }
 
+  // On select changed, it controls selectedValue in the state
+  // and calls handler from props
   onShelfChange = (event) => {
     const selectedValue = event.target.value;
     this.props.onShelfChange(selectedValue);
@@ -14,23 +16,21 @@ class BookControls extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <button
-          className='book-shelf-changer'>
-          <select
-            value={this.state.selectedValue}
-            onChange={this.onShelfChange}
-          >
-            <option disabled value='moveTo'> -- Move to -- </option>
-            {getShelves().map((shelf) => (
-              <option
-                key={shelf.id}
-                value={shelf.id}>{shelf.label}
-              </option>
-            ))}
-          </select>
-        </button>
-      </React.Fragment>
+      <button
+        className='book-shelf-changer'>
+        <select
+          value={this.state.selectedValue}
+          onChange={this.onShelfChange}
+        >
+          <option disabled value='moveTo'> -- Move to -- </option>
+          {getShelves().map((shelf) => (
+            <option
+              key={shelf.id}
+              value={shelf.id}>{shelf.label}
+            </option>
+          ))}
+        </select>
+      </button>
     )
   }
 }

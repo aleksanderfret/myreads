@@ -1,7 +1,7 @@
 import React from 'react';
 import BookControls from './BookControls/BookControls';
 
-const book = (props) => {
+const Book = (props) => {
   return (
     <li key={props.id} className='book'>
       <div className='book-top'>
@@ -20,4 +20,4 @@ const book = (props) => {
   );
 }
 
-export default book;
+export default Book;

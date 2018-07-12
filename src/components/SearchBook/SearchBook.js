@@ -10,28 +10,37 @@ class SearchBook extends Component {
     query: ''
   }
 
+  // Handles change of search input: setts state properly
+  // and calls search method
   onSearchInputChange = (event) => {
     const newQuery = event.target.value;
-    this.setState(()=>({query: newQuery}))
+    this.setState(() => ({ query: newQuery }))
     if (newQuery) {
       this.search(escapeRegExp(newQuery));
     } else {
       this.setState({ books: [] });
     }
   }
-  onShelfChange = (book, newShelf) => {
-    BooksAPI.update(book, newShelf).then(()=>{
-      book.shelf = newShelf;
+
+  // Decorates books from search results with shelf property
+  // from booksOnShelves array (it is passed here via props
+  // from main application component).
+  addShelfInfo = (books) => {
+    books.forEach((book) => {
+      const bookOnShelf = this.props.booksOnShelves.find(b => b.id === book.id);
+      if (bookOnShelf) {
+        book.shelf = bookOnShelf.shelf;
+      }
     })
   }
 
+  // Performs searching and handles results.
   search = (query) => {
     BooksAPI.search(query)
       .then((books) => {
-        if(books && this.state.query){
+        if (books && this.state.query) {
+          this.addShelfInfo(books);
           this.setState({ books }) // instead of { books: books }
-        } else {
-          console.log('rerekumukum', this.state.query)
         }
       })
       .catch(() => {
@@ -40,7 +49,6 @@ class SearchBook extends Component {
   }
 
   render() {
-
     return (
       <React.Fragment>
         <div className='search-books-bar'>
@@ -55,7 +63,7 @@ class SearchBook extends Component {
         <div className='search-books-results'>
           {this.state.books.length > 0 && (
             <Books
-              onShelfChange={this.onShelfChange}
+              onShelfChange={this.props.onShelfChange}
               books={this.state.books}
             />
           )}
