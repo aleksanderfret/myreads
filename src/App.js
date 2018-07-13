@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import MyReads from './containers/MyReads';
 import SearchBook from './components/SearchBook/SearchBook';
+import BookDetails from './components/BookDetails/BookDetails';
 import * as BooksAPI from './BooksAPI';
 import './App.css';
 
@@ -40,6 +41,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+      <Switch>
         <Route exact path='/' render={ () => (
           <Layout>
             <MyReads
@@ -47,12 +49,14 @@ class App extends Component {
               onShelfChange={this.onShelfChange} />
           </Layout>
         )}/>
-        <Route path='/search' render={ ({history}) => (
+        <Route exact path='/search' render={ ({history}) => (
           <SearchBook
             booksOnShelves={this.state.booksOnShelves}
             onShelfChange={this.onShelfChange}
           />
         )}/>
+        <Route path='/:id' component={ BookDetails }/>
+      </Switch>
       </div>
     );
   }
