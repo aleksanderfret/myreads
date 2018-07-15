@@ -1,4 +1,4 @@
-# MyReadsgit
+# MyReads
 MyReads was created as a project within the Google Scholarship Programm.
 
 ## Install
