@@ -20,7 +20,7 @@ class BookDetails extends Component {
     return(
       <div>
         <Link to='/'>Home</Link>
-        <div className='book-top'>
+        <div>
           {this.state.book.imageLinks && this.state.book.imageLinks.smallThumbnail &&
             <img src={this.state.book.imageLinks.smallThumbnail} alt={`Cover of book ${this.state.book.title}`} />
           }
