@@ -3,7 +3,7 @@ import { getShelves } from '../../../../models/shelves';
 
 class BookControls extends Component {
   state = {
-    selectedValue: this.props.currentShelf || 'moveTo'
+    selectedValue: this.props.currentShelf || 'None'
   }
 
   // On select changed, it controls selectedValue in the state

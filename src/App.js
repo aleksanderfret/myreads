@@ -23,19 +23,21 @@ class App extends Component {
   // or adds new book to state).
   onShelfChange = (book, newShelf) => {
     BooksAPI.update(book, newShelf).then((updated) => {
-      if (updated[newShelf] && updated[newShelf].includes(book.id)) {
-        this.setState((prevState) => {
-          const newBooks = [...prevState.booksOnShelves];
-          const prevBook = newBooks.find(b => b.id === book.id);
-          if (prevBook) {
-            prevBook.shelf = newShelf;
-          } else {
-            book.shelf = newShelf;
-            newBooks.push(book);
+      this.setState((prevState) => {
+        let newBooks = [...prevState.booksOnShelves];
+        const prevBook = newBooks.find(b => b.id === book.id);
+        if (prevBook) {
+          prevBook.shelf = newShelf;
+          if (newShelf === null) {
+            newBooks = newBooks.filter(b => b.id !== book.id);
           }
-          return { booksOnShelves: newBooks };
-        });
-      }})
+        } else {
+          book.shelf = newShelf;
+          newBooks.push(book);
+        }
+        return { booksOnShelves: newBooks };
+      });
+    })
   }
 
   render() {
